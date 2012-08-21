@@ -14,6 +14,9 @@ end
 
 helpers do
   def find_template(views, name, engine, &block)
+    # I'd use a simple ub descriptive name rather than _, like throwaway
+    # Working by yourself this is fine but in a team environment understandability
+    # is much more important than a few characters that a compiler will optimize away
     _, folder = views.detect(views[:default]) { |k,v| engine == Tilt[k] }
     super(folder, name, engine, &block)
   end
@@ -52,6 +55,7 @@ get '/:page/?' do |p|
   haml p.to_sym
 end
 
+# If user is already logged in should this path be accessible?
 get '/register/?' do
   haml :register
 end
@@ -64,6 +68,7 @@ end
 post '/login/?' do
   @user = User.find(:name => params[:name])
   if @user && Salty.check(params[:password], @user.values[:password])
+    # Where is this PUTS output going to?
     puts "Login success!"
     @key = "user:" + session[:id]
     REDIS.set @key, @user.to_json
@@ -91,6 +96,8 @@ post '/upload/?' do
       (tempfile = params[:file][:tempfile]) && 
       (name = params[:file][:filename])
     status 400
+    # Try to be friendlier to your users. While "You must" is technically accurate,
+    # it is a bit harsh to see on a screen.
     error_page(title: "No File Selected", message: "You must choose a file to upload.")
   end
 
@@ -115,6 +122,9 @@ get '/view/:file' do
   end
 
   if File.exists?("./uploads/#{params[:file]}")
+  # I'm not a Sinatra expert but going by previous code in this file, do halt 200 and halt 404
+  # simply print the string to the screen or is there a layout within which these are printed?
+  # (I see other routes use the haml command...)
     halt 200, "I have your file.  You can download it <a href='/download/#{params[:file]}'>here</a>!"
   else
     halt 404
