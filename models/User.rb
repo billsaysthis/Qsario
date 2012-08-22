@@ -8,6 +8,8 @@ class User < Sequel::Model
     self.enabled ||= true
     self.joined_at ||= Time.now
     self.takedowns ||= 0
+    # If admin attr must be false on new user, why not just set as default in the migration
+    # For belt and suspenders approach you could put ina validation as well
     self.admin = false	# Only allow this to be added to an existing user.
     super
   end
