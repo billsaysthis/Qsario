@@ -4,6 +4,7 @@
     %title Qsario - Find and Share Minecraft Worlds
     %link{:href => "/css/layout.css", :rel => "stylesheet", :type => "text/css"}/
     %link{:href => "/css/colors.css", :rel => "stylesheet", :type => "text/css"}/
+    # Inline CSS? Not something I like to see, especially since you're using Sass
     :css
       .tabs {
       	position: relative;
@@ -69,6 +70,9 @@
       .tabs
         .tab
           %input#tab-1{:checked => "", :name => "tab-group-1", :type => "radio"}
+            # You should probably look at I18n rather than putting text in your views
+            # Not a big deal for personal projects but a good habit for professional work
+            # So a good thing if you hope this project will become a reference sample for you
             %label{:for => "tab-1"} Getting Started
             .content
               Welcome to Qsario!  You can find many great Minecraft worlds here, or create an account and upload
