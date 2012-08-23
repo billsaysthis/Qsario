@@ -33,8 +33,6 @@
       %fieldset#new_account
         %legend User Login 
         %form#new_account_form{:action => "/login", :method => "post"}
-          # Amusing but in reality you probably do want user emails in case you need to contact
-          # them, or want to contact them
           %span{:style => "visibility: hidden; height: 0px; display: none !important"}
             Spammers only:
             %input{:name => "email", :size => "1", :type => "text"}/
@@ -53,7 +51,6 @@
             %input{:maxlength => "50", :name => "password", :size => "20", :type => "password"}/
           %br/
           %br/
-          # I would add a check box for agreeing to your TOS
           %input{:type => "submit", :value => "Register"}/
           %br/
       #explanation
